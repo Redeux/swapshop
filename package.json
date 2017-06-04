@@ -1,0 +1,38 @@
+{
+  "name": "swapshop",
+  "version": "1.0.0",
+  "description": "An online marketplace for swapping goods",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Redeux/swapshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Redeux/swapshop/issues"
+  },
+  "homepage": "https://github.com/Redeux/swapshop#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
+    "es6-promisify": "^5.0.0",
+    "eslint": "^3.19.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.0",
+    "html-to-text": "^3.3.0",
+    "juice": "^4.1.0",
+    "nodemailer": "^4.0.1",
+    "passport": "^0.3.2",
+    "pug": "^2.0.0-rc.2",
+    "sequelize": "^3.30.4",
+    "uuid": "^3.0.1"
+  }
+}
