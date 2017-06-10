@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     itemName: {
       type: DataTypes.STRING(100),
@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
       //allow all characters
     },
     description: {
-      type: DataTypes.TEXT(255),
+      type: DataTypes.TEXT,
       allowNull: false,
       //allow all characters
     },
@@ -39,17 +39,23 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       defaultValue: true,
     },
-  },
-    {
-      classMethods: {
-        associate(models) {
-          Item.belongsTo(models.User, models.Category, {
-            foreignKey: {
-              allowNull: false,
-            },
-          });
-        },
+  }, {
+    // We're saying that we want our Author to have Posts
+    classMethods: {
+      associate(models) {
+        // An Author (foreignKey) is required or a Post can't be made
+        Item.belongsTo(models.User, {
+          foreignKey: {
+            allowNull: false,
+          },
+        });
+        Item.belongsTo(models.SwapItems, {
+          foreignKey: {
+            allowNull: false,
+          },
+        });
       },
-    });
+    },
+  });
   return Item;
 };

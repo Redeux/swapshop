@@ -44,9 +44,9 @@ app.get('/', (req, res) => {
 models.sequelize.sync().then(() => {
   console.log('Database connection successful');
   app.listen(PORT, (err) => {
-    if (!err) console.log(`Started Express Server on port: ${PORT}`);
+    if (!err) console.log(`Started Express server on port: ${PORT}`);
     else console.log(`Failed to start server due to an error: ${err}`);
   });
 }).catch((err) => {
-  console.log(`Something went wrong with the Database: ${err}`);
+  console.log(`Something went wrong with the database: ${err}`);
 });
