@@ -10,17 +10,9 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       //allow all characters
     },
-    category: {
-      type: DataTypes.STRING(100),
-      // foreign keys from categories table
-    },
     imageLink: {
       type: DataTypes.STRING(255),
       allowNull: false,
-    },
-    owner: {
-      type: DataTypes.INTEGER,
-      // foreign keys from users table
     },
     active: {
       type: DataTypes.BOOLEAN,
@@ -51,7 +43,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate(models) {
-          Item.belongsTo(models.User, {
+          Item.belongsTo(models.User, models.Category, {
             foreignKey: {
               allowNull: false,
             },
