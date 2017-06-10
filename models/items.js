@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
       //allow all characters
     },
     category: {
+      type: DataTypes.STRING(100),
       // foreign keys from categories table
     },
     imageLink: {
