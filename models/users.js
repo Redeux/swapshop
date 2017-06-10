@@ -9,7 +9,6 @@ module.exports = function (sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING(64),
       allowNull: false,
-      //all characters allowed
     },
     emailAddress: {
       type: DataTypes.STRING,
