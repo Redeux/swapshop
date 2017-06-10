@@ -30,6 +30,9 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
+// Load passport strategies
+// require('./config/passport/passport.js')(passport, models.user);
+
 // Routes
 const authRoute = require('./routes/auth')(app);
 
