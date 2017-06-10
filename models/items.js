@@ -1,5 +1,3 @@
-const User = require('./users.js');
-
 module.exports = function (sequelize, DataTypes) {
   const Item = sequelize.define('Item', {
     itemName: {
@@ -22,10 +20,6 @@ module.exports = function (sequelize, DataTypes) {
     owner: {
       type: DataTypes.INTEGER,
       // foreign keys from users table
-      references: {
-        model: User,
-        key: 'id',
-      },
     },
     active: {
       type: DataTypes.BOOLEAN,
