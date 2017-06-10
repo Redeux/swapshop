@@ -3,12 +3,10 @@ module.exports = function (sequelize, DataTypes) {
     itemName: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      //allow all characters
     },
     description: {
-      type: DataTypes.TEXT(255),
+      type: DataTypes.STRING(255),
       allowNull: false,
-      //allow all characters
     },
     imageLink: {
       type: DataTypes.STRING(255),
