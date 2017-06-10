@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     username: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      //no spaces
+      // no spaces
       unique: true,
     },
     password: {
@@ -44,14 +44,17 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     },
     // email verified
-  }, {
-    classMethods: {
-      associate(models) {
-        User.hasMany(models.Item, {
-          onDelete: 'cascade',
-        });
+  },
+    {
+      classMethods: {
+        associate(models) {
+          User.hasMany(models.Item, models.SwapTransaction, {
+            foreignKey: {
+              allowNull: false,
+            },
+          });
+        },
       },
-    },
-  });
+    });
   return User;
 };
