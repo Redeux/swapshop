@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const SwapTransaction = sequelize.define('SwapTransaction', {
     requester: {
       type: DataTypes.INTEGER,
@@ -19,17 +19,21 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: 'Pending',
       //add other options (fields?): accepted, complete, declined, canceled
     },
-  },
-    {
-      classMethods: {
-        associate(models) {
-          SwapTransaction.hasMany(models.SwapItems, {
-            foreignKey: {
-              allowNull: false,
-            },
-          });
-        },
+  }, {
+    classMethods: {
+      associate(models) {
+        SwapTransaction.belongsToMany(models.User, {
+          through: 'transaction_users',
+          'foreign-key': 'id',
+          as: 'user'
+        });
+        SwapTransaction.hasMany(models.SwapItems, {
+          foreignKey: {
+            allowNull: false,
+          },
+        });
       },
-    });
+    },
+  });
   return SwapTransaction;
 }

@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING(15),
@@ -43,17 +43,17 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     },
     // email verified
-  },
-    {
-      classMethods: {
-        associate(models) {
-          User.hasMany(models.Item, models.SwapTransaction, {
-            foreignKey: {
-              allowNull: false,
-            },
-          });
-        },
+  }, {
+    classMethods: {
+      associate(models) {
+        User.hasMany(models.Item, {
+          onDelete: "cascade",
+        });
+        User.hasMany(models.SwapTransaction, {
+          onDelete: "cascade",
+        });
       },
-    });
+    },
+  });
   return User;
 };
