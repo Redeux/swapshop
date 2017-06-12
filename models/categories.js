@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
     parent: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
   });
   return Category;
-}
+};
