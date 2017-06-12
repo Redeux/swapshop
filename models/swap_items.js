@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const SwapItems = sequelize.define('SwapItems', {
-    swapTransaction: {
+    swapItem1: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    swapItem: {
+    swapItem2: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

@@ -1,9 +1,8 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      // no spaces
       unique: true,
     },
     password: {
@@ -42,15 +41,25 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // email verified
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'beginTime',
+      defaultValue: sequelize.literal('NOW()'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('NOW()'),
+    },
+  }, {
+    timestamps: true,
   }, {
     classMethods: {
       associate(models) {
         User.hasMany(models.Item, {
-          onDelete: "cascade",
+          onDelete: 'cascade',
         });
         User.hasMany(models.SwapTransaction, {
-          onDelete: "cascade",
+          onDelete: 'cascade',
         });
       },
     },
