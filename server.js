@@ -3,12 +3,13 @@ const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const path = require('path');
 const models = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 // For BodyParser
 app.use(bodyParser.urlencoded({
   extended: true,

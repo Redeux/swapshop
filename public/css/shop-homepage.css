@@ -1,0 +1,82 @@
+/*!
+ * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    background-color:gray;
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+#homePageTitle {
+    font-family: "Mogra", cursive;
+    font-size:100px;
+    text-align:center;
+}
+
+.options {
+    text-align:center;
+    font-family: "Nunito", sans-serif;
+}
+
+.navbar {
+    box-sizing:border-box;
+    height:50px;
+}
+
+.title {
+    font-size:20px;
+    font-weight: bolder;
+    font-family: "Mogra", cursive;
+}
+
+.links {
+    font-family: "Nunito", sans-serif;
+}
+
+.top {
+    text-align:center;
+}
+
+#yourShop {
+    font-size: 50px;
+    font-family: "Mogra", cursive;
+}
+
+#itemTitle {
+    font-family: "Mogra", cursive;
+}
+
+.addItem {
+    border:solid black 1px;
+    padding:5px;
+    font-size: 15px;
+    font-family: "Nunito", sans-serif;
+}
+
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.footer {
+    font-family: "Nunito", sans-serif;
+    text-align:center;
+}

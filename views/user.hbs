@@ -1,44 +1,92 @@
-<h1>Add an item to your SwapShop!</h1>
+{{!--<h1 id="masthead">Your Shop</h1>
+<h2>Add an item to your SwapShop!</h2>--}}
 
-<form class="create-update-form" action="/item/create" method="post">
-  <div class="form-group">
-    <label for="itemName">Name of Item:</label>
-    <input type="text" id="itemName" name="itemName"><br>
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description"><br>
-    <label for="imageLink">Image Link:</label>
-    <input type="text" id="imageLink" name="imageLink"><br>
-    <label for="active">Active?</label><br>
-    <input type="radio" name="active" value="active">Yes<br>
-    <input type="radio" name="inactive" value="active">No<br>
-    <label for="for_swap">For swap?</label><br>
-    <input type="radio" name="for_swap" value="swap">Yes<br>
-    <input type="radio" name="not_swap" value="noSwap">No<br>
-    <label for="for_sale">For sale?</label><br>
-    <input type="radio" name="for_sale" value="sale">Yes<br>
-    <input type="radio" name="noSale" value="noSale">No<br>
-    <label for="value">Value (in dollars):</label>
-    <input type="text" id="value" name="value"><br>
-    <label for="public">Public?</label><br>
-    <input type="radio" name="public" value="public">Yes<br>
-    <input type="radio" name="private" value="private">No<br>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand title">SwapShop <i class="fa fa-retweet" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container content">
+
+        <div class="row top">
+            <div class="col-md-12">
+                <div class="list-group links">
+                    <a href="/signin" class="list-group-item">Sign-in</a>
+                    <a href="/DUNNOYET" class="list-group-item">View Other Shops</a>
+                </div>
+                <p class="lead" id="yourShop">Your Shop</p>
+            </div>
+        </div>
+
+            
+<h2 id="itemTitle">Add an Item to Your Shop</h2>
+<div class="row ">
+  <div class="col-sm-4 addItem">
+      <form class="create-update-form" action="/item/create" method="post">
+        <div class="form-group">
+          <label for="itemName">Name of Item:</label><br>
+          <input type="text" id="itemName" name="itemName"><br>
+          <label for="description">Description:</label><br>
+          <input type="text" id="description" name="description"><br>
+          <label for="imageLink">Image Link:</label><br>
+          <input type="text" id="imageLink" name="imageLink"><br>
+          <label for="active">Active?</label><br>
+          <input type="radio" name="active" value="active">Yes<br>
+          <input type="radio" name="inactive" value="active">No<br>
+          <label for="for_swap">For swap?</label><br>
+          <input type="radio" name="for_swap" value="swap">Yes<br>
+          <input type="radio" name="not_swap" value="noSwap">No<br>
+          <label for="for_sale">For sale?</label><br>
+          <input type="radio" name="for_sale" value="sale">Yes<br>
+          <input type="radio" name="noSale" value="noSale">No<br>
+          <label for="value">Value (in dollars):</label><br>
+          <input type="text" id="value" name="value"><br>
+          <label for="public">Public?</label><br>
+          <input type="radio" name="public" value="public">Yes<br>
+          <input type="radio" name="private" value="private">No<br>
+        </div>
+        <button type="submit">Add!</button>
+      </form>
   </div>
-  <button type="submit">Add!</button>
-</form>
+</div>
 
+                <div class="row">
+                  {{#each items}}
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src={{this.imageLink}} alt="">
+                            <div class="caption">
+                                <h4 class="pull-right">${{this.value}}</h4>
+                                <h4><a href="#">{{this.itemName}}</a>
+                                </h4>
+                                <p>{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
 
-<ul>
-  {{#each items}}
-  <li>
-    {{this.itemName}}
-    {{this.description}}
-    {{this.imageLink}}
-    {{this.active}}
-    {{this.for_swap}}
-    {{this.for_sale}}
-    {{this.value}}
-    {{this.public}}
-  </li>
-  {{/each}}
-</ul>
+            </div>
+    <!-- /.container -->
 
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    <p>Copyright &copy; SwapShop 2017</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
