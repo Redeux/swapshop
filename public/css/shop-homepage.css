@@ -31,8 +31,20 @@ body {
     font-family: "Mogra", cursive;
 }
 
+#enterInfo {
+    text-align:center;
+    font-Family: "Nunito", sans-serif;
+}
+
 .links {
     font-family: "Nunito", sans-serif;
+}
+
+.userForm {
+    text-align:center;
+    font-family: "Nunito", sans-serif;
+    border: solid black 1px;
+    padding: 5px;
 }
 
 .top {
