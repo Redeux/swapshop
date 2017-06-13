@@ -7,8 +7,7 @@ const models = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-require('./routes/html-routes.js')(app);
-require('./contollers/itemsController.js')(app);
+
 
 // For BodyParser
 app.use(bodyParser.urlencoded({
@@ -38,6 +37,8 @@ app.set('view engine', '.hbs');
 
 // Routes
 const authRoute = require('./routes/auth')(app);
+require('./routes/html-routes.js')(app);
+require('./contollers/itemsController.js')(app);
 
 app.get('/', (req, res) => {
   res.send('Welcome to Passport with Sequelize');
