@@ -1,0 +1,44 @@
+<h1>Add an item to your SwapShop!</h1>
+
+<form class="create-update-form" action="/item/create" method="post">
+  <div class="form-group">
+    <label for="itemName">Name of Item:</label>
+    <input type="text" id="itemName" name="itemName"><br>
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description"><br>
+    <label for="imageLink">Image Link:</label>
+    <input type="text" id="imageLink" name="imageLink"><br>
+    <label for="active">Active?</label><br>
+    <input type="radio" name="active" value="active">Yes<br>
+    <input type="radio" name="inactive" value="active">No<br>
+    <label for="for_swap">For swap?</label><br>
+    <input type="radio" name="for_swap" value="swap">Yes<br>
+    <input type="radio" name="not_swap" value="noSwap">No<br>
+    <label for="for_sale">For sale?</label><br>
+    <input type="radio" name="for_sale" value="sale">Yes<br>
+    <input type="radio" name="noSale" value="noSale">No<br>
+    <label for="value">Value (in dollars):</label>
+    <input type="text" id="value" name="value"><br>
+    <label for="public">Public?</label><br>
+    <input type="radio" name="public" value="public">Yes<br>
+    <input type="radio" name="private" value="private">No<br>
+  </div>
+  <button type="submit">Add!</button>
+</form>
+
+
+<ul>
+  {{#each items}}
+  <li>
+    {{this.itemName}}
+    {{this.description}}
+    {{this.imageLink}}
+    {{this.active}}
+    {{this.for_swap}}
+    {{this.for_sale}}
+    {{this.value}}
+    {{this.public}}
+  </li>
+  {{/each}}
+</ul>
+
