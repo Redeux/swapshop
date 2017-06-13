@@ -7,7 +7,6 @@ module.exports = (app) => {
       where: {
         UserId: req.params.user
       }
-      
     }).then((dbItem) => {
       var hbsObject = {
         item: dbItem
@@ -25,21 +24,21 @@ module.exports = (app) => {
   //     res.redirect('/user-item');
   //   })
   // });
-  // app.post('/item/create', (req, res) => {
-  //   db.Item.create({
-  //     itemName: req.body.itemName,
-  //     description: req.body.description,
-  //     imageLink: req.body.imageLink,
-  //     active: req.body.active,
-  //     for_swap: req.body.for_swap,
-  //     for_sale: req.body.for_sale,
-  //     value: req.body.value,
-  //     public: req.body.public
+  app.post('/item/create', (req, res) => {
+    db.Item.create({
+      itemName: req.body.itemName,
+      description: req.body.description,
+      imageLink: req.body.imageLink,
+      active: req.body.active,
+      for_swap: req.body.for_swap,
+      for_sale: req.body.for_sale,
+      value: req.body.value,
+      public: req.body.public
 
-  //   }).then((dbItem) => {
-  //     res.redirect('/user-item');
-  //   });
-  // });
+    }).then((dbItem) => {
+      res.redirect('user');
+    });
+  });
   // app.put('/item/update', (req, res) => {
   //   db.Item.update(
   //     req.body,
