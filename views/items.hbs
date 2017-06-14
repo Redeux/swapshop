@@ -1,0 +1,33 @@
+<h1>Trade Items</h1>
+<form class="trade-form">
+  <h2>My Items</h2>
+  <ul>
+  {{#each userItems}}
+  
+    <label>{{this.itemName}}</label>
+    <input type="radio" name="userItems" class="userItems" value={{this.id}}>
+    {{!--<li>
+      {{this.itemName}}
+      
+      <button data-id={{this.id}} class="trade-btn">Trade</button>
+    </li>--}}
+    
+  {{/each}}
+  </ul>
+
+  <h2>Trade Items</h2>
+  <ul>
+  {{#each tradeItems}}
+
+    <label for="">{{this.itemName}}</label>
+    <input type="radio" name="tradeItems" class="tradeItems" value={{this.id}}>
+    {{!--<li>
+      {{this.itemName}}
+      
+      <button data-id={{this.id}} class="trade-btn">Trade</button>
+    </li>--}}
+    
+  {{/each}}
+  </ul>
+  <button type="submit">Trade</button>
+</form>

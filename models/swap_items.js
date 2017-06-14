@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
           },
         });
-        SwapItems.hasMany(models.Item, {
-          foreignKey: {
-            allowNull: false,
-          },
-        });
+        // SwapItems.hasMany(models.Item, {
+        //   foreignKey: {
+        //     allowNull: false,
+        //   },
+        // });
       },
     },
   });

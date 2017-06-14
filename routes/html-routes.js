@@ -8,7 +8,13 @@ module.exports = function (app) {
   app.get('/signup', (req, res) => {
     res.render(path.join(__dirname, '../views/signup.hbs'));
   });
-  app.get('/user', (req, res) => {
+  app.get('/user/:userId/items/create', (req, res) => {
     res.render(path.join(__dirname, '../views/user.hbs'));
   });
+  app.get('/login', (req, res) => {
+    res.render(path.join(__dirname, '../views/login.hbs'));
+  });
+  // app.get('/user/:userId/items', (req, res) => {
+  //   res.render(path.join(__dirname, '../views/user-items.hbs'));
+  // });
 };
