@@ -30,6 +30,8 @@
   <div class="col-sm-4 addItem">
       <form class="create-update-form" action="/item/create" method="post">
         <div class="form-group">
+          <label for="UserId">User Id</label><br>
+          <input type="text" id="userId" name="UserId"><br>
           <label for="itemName">Name of Item:</label><br>
           <input type="text" id="itemName" name="itemName"><br>
           <label for="description">Description:</label><br>
@@ -37,19 +39,19 @@
           <label for="imageLink">Image Link:</label><br>
           <input type="text" id="imageLink" name="imageLink"><br>
           <label for="active">Active?</label><br>
-          <input type="radio" name="active" value="active">Yes<br>
-          <input type="radio" name="inactive" value="active">No<br>
+          <input type="radio" name="active" value="true">Yes<br>
+          <input type="radio" name="active" value="false">No<br>
           <label for="for_swap">For swap?</label><br>
-          <input type="radio" name="for_swap" value="swap">Yes<br>
-          <input type="radio" name="not_swap" value="noSwap">No<br>
+          <input type="radio" name="for_swap" value="true">Yes<br>
+          <input type="radio" name="for_swap" value="false">No<br>
           <label for="for_sale">For sale?</label><br>
-          <input type="radio" name="for_sale" value="sale">Yes<br>
-          <input type="radio" name="noSale" value="noSale">No<br>
+          <input type="radio" name="for_sale" value="true">Yes<br>
+          <input type="radio" name="for_sale" value="false">No<br>
           <label for="value">Value (in dollars):</label><br>
           <input type="text" id="value" name="value"><br>
           <label for="public">Public?</label><br>
-          <input type="radio" name="public" value="public">Yes<br>
-          <input type="radio" name="private" value="private">No<br>
+          <input type="radio" name="public" value="true">Yes<br>
+          <input type="radio" name="public" value="false">No<br>
         </div>
         <button type="submit">Add!</button>
       </form>

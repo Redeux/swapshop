@@ -38,24 +38,24 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
     },
   }
-  // , {
-  //   // We're saying that we want our Author to have Posts
-  //   classMethods: {
-  //     associate(models) {
-  //       // An Author (foreignKey) is required or a Post can't be made
-  //       Item.belongsTo(models.User, {
-  //         foreignKey: {
-  //           allowNull: false,
-  //         },
-  //       });
+  , {
+    // We're saying that we want our Author to have Posts
+    classMethods: {
+      associate(models) {
+        // An Author (foreignKey) is required or a Post can't be made
+        Item.belongsTo(models.User, {
+          foreignKey: {
+            allowNull: false,
+          },
+        });
   //       // Item.belongsTo(models.SwapItems, {
   //       //   foreignKey: {
   //       //     allowNull: false,
   //       //   },
   //       // });
-  //     },
-  //   },
-  // }
+      },
+    },
+  }
   );
   return Item;
 };
