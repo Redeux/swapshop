@@ -48,14 +48,13 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
           },
         });
-  //       // Item.belongsTo(models.SwapItems, {
-  //       //   foreignKey: {
-  //       //     allowNull: false,
-  //       //   },
-  //       // });
+        // Item.belongsTo(models.SwapItems, {
+        //   foreignKey: {
+        //     allowNull: true,
+        //   },
+        // });
       },
     },
-  }
-  );
+  });
   return Item;
 };
