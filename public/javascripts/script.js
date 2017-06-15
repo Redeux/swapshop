@@ -29,7 +29,7 @@ $('.trade-form').submit(function(event) {
     TradeItemId: tradeItemId
   }
   $.ajax({
-    url: "/trade",
+    url: "/trade-request",
     type: "PUT",
     data: JSON.stringify(dataObject),
     contentType: "application/json" 

@@ -19,7 +19,7 @@ module.exports = (app) => {
         id: req.params.item
       }
     }).then((dbItem) => {
-      res.render('user-item');
+      res.render('user-items');
     })
   });
   app.post('/item/create', (req, res) => {
@@ -55,7 +55,7 @@ module.exports = (app) => {
         tradeItems: tradeItems,
         userItems: userItems,
       }
-      res.render('items', hbsObject);
+      res.render('transaction', hbsObject);
     })
     });
   });
@@ -67,7 +67,7 @@ module.exports = (app) => {
           id: req.body.id
         }
     }).then((dbItem) => {
-      res.redirect('/user-item');
+      res.redirect('/user-items');
     });
   });
   app.put('/item/delete', (req, res) => {
@@ -78,46 +78,59 @@ module.exports = (app) => {
           id: req.body.id
         }
       }).then((dbItem) => {
-        res.redirect('/user-item');
+        res.redirect('/user-items');
       });
   });
-
-  app.put('/trade', (req,res) => {
-    // console.log(req.body);
-    // would need trade confirmation here
-
+  app.post('/trade-request', (req, res) =>{
     db.Item.findOne({
       where: {
         id: req.body.TradeItemId
       }
     }).then((tradeItem) => {
-
       var tradeeId = tradeItem.UserId;
-      console.log(req.body.UserId, req.body.UserItemId)
-      db.Item.update({
-      UserId: req.body.UserId
-      },
-      {
-        where: {
-          id: req.body.TradeItemId
-        }
-      }).then(() => {
-        db.Item.update({
-          UserId: tradeeId
-          },
-          {
-            where: {
-              id: req.body.UserItemId
-            }
-        })
-      })
-
+      db.SwapTransactions.create({
+        user1: req.body.userId,
+        user2: req.body.tradeeId,
+        swapItem1: req.body.UserItemId,
+        swapItem2: req.body.TradeItemId
+    }).then((results) => {
+      // send info to both users pending transactions pages
     })
 
-
-
+    })
+    
+    
   })
 
+  // app.put('/trade', (req,res) => {
+  //   // console.log(req.body);
+  //   // would need trade confirmation here
 
+  //   db.Item.findOne({
+  //     where: {
+  //       id: req.body.TradeItemId
+  //     }
+  //   }).then((tradeItem) => {
 
+  //     var tradeeId = tradeItem.UserId;
+
+  //     // db.Item.update({
+  //     // UserId: req.body.UserId
+  //     // },
+  //     // {
+  //     //   where: {
+  //     //     id: req.body.TradeItemId
+  //     //   }
+  //     // }).then(() => {
+  //     //   db.Item.update({
+  //     //     UserId: tradeeId
+  //     //     },
+  //     //     {
+  //     //       where: {
+  //     //         id: req.body.UserItemId
+  //     //       }
+  //     //   })
+  //     // });
+  //   });
+  // });
 };
