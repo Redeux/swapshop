@@ -4,6 +4,10 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color:gray;
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -58,6 +62,15 @@ body {
 
 #itemTitle {
     font-family: "Mogra", cursive;
+    text-align:center;
+}
+
+.itemBox {
+    padding:5px;
+}
+
+.thumbnail {
+    text-align:center;
 }
 
 .addItem {
@@ -67,6 +80,11 @@ body {
     font-family: "Nunito", sans-serif;
 }
 
+#button {
+    margin:auto;
+    font-family: "Mogra", cursive;
+    font-size:30px;
+}
 .caption {
     height: 130px;
     overflow: hidden;

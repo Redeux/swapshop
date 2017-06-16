@@ -9,7 +9,7 @@ module.exports = function (app) {
     res.render(path.join(__dirname, '../views/signup.hbs'));
   });
   app.get('/user/:userId/items/create', (req, res) => {
-    res.render(path.join(__dirname, '../views/user.hbs'));
+    res.render(path.join(__dirname, '../views/createItems.hbs'));
   });
   app.get('/login', (req, res) => {
     res.render(path.join(__dirname, '../views/login.hbs'));
