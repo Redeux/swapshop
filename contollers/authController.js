@@ -1,4 +1,4 @@
-// const exports = module.exports = {};
+// let exports = module.exports = {};
 
 exports.signup = (req, res) => {
   res.render('signup');
