@@ -19,12 +19,9 @@ module.exports = function(app) {
   app.get('/user/items/create', isLoggedIn, (req, res) => {
     res.render('createItems.hbs');
   });
-  app.get('/transaction', isLoggedIn, (req, res) => {
-    res.render('transaction.hbs');
-  });
   app.get('/pending', isLoggedIn, (req, res) => {
     res.render('pending.hbs');
-  });
+  app.get('/user/transactions',  isLoggedIn, userController.transactions);
 
   function isLoggedIn(req, res, next) {
 
