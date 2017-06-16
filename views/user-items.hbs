@@ -1,22 +1,39 @@
-<h1 id="itemTitle">Your Items</h1>
+<header class="intro-header" style="background-image: url('/images/records.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <div class="homeHeader">
+                          <h1 id="itemTitle">Your Shop</h1>
+                          <button type="submit" href="/transaction" id="submitBtn">New Swap</button>
+                          <button type="submit" href="user/items/create" id="submitBtn">Add Items</button>
+                          <button type="submit" href="/pending" id="submitBtn">View Your Pending Swaps</button>
+                          <br>
+                          <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
  
    <div class="row">
+     <h2 class="subtitles">Your Items for Swap</h1>
                   {{#each items}}
                     <div class="col-sm-4 col-lg-4 col-md-4 itemBox">
                         <div class="thumbnail">
-                            <img src={{this.imageLink}} alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">${{this.value}}</h4>
-                                <h4><a href="#">{{this.itemName}}</a>
-                                </h4>
-                                <p>{{this.description}}</p>
-                            </div>
+                                <h4 id="printItemName">{{this.itemName}}</h4>
+                                <p id="printDesc">{{this.description}}</p>
+                                <h4 id="money">${{this.value}}</h4>
+                                <img src={{this.imageLink}} alt="">
                         </div>
+                        <button href="/item/delete" type="delete" id="submitBtn">Delete</button>
                     </div>
+                    <hr>
                     {{/each}}
     </div>
 
-<a href="user/items/create" id="button">Add more!</a>
+
       
     <!-- /.container -->
 
