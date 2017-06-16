@@ -14,10 +14,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": process.env.JAWSDB_USER,
-    "password": process.env.JAWSDB_PSWD,
-    "database": process.env.JAWSDB_INSTANCE,
-    "host": process.env.JAWSDB_HOST,
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL"
   }
 }
