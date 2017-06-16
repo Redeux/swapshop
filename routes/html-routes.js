@@ -9,6 +9,9 @@ module.exports = function(app) {
   app.get('/signup', (req, res) => {
     res.render('signup.hbs');
   });
+  app.get('/login', (req, res) => {
+    res.render('login.hbs');
+  });
   app.get('/user', isLoggedIn, userController.items);
   app.get('/user/items', isLoggedIn, (req, res) => {
     res.redirect('/user');
@@ -16,10 +19,12 @@ module.exports = function(app) {
   app.get('/user/items/create', isLoggedIn, (req, res) => {
     res.render('createItems.hbs');
   });
-  app.get('/login', (req, res) => {
-    res.render('login.hbs');
+  app.get('/transaction', isLoggedIn, (req, res) => {
+    res.render('transaction.hbs');
   });
-
+  app.get('/pending', isLoggedIn, (req, res) => {
+    res.render('pending.hbs');
+  });
 
   function isLoggedIn(req, res, next) {
 

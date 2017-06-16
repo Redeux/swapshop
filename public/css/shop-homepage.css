@@ -14,6 +14,10 @@
     color:black;
 }
 
+.homeHeader {
+    text-align:center;
+}
+
 .subheading {
     color:black;
     font-weight:bold;
@@ -37,6 +41,7 @@
     text-align:center;
     font-Family: "Nunito", sans-serif;
     font-size:50px;
+    color:black;
 }
 
 .links {
@@ -52,13 +57,25 @@
 
 #email, #password {
     font-size:40px;
+    border:1px solid black;
+    padding:2px;
 }
 
 #submitBtn {
     font-size:30px;
     font-family: "Mogra", cursive;
     border-radius:12px;
-    background-color:#ffa07a;
+    background-color:#00a1e5;
+    padding:5px;
+    border:1px solid black;
+    text-align:center;
+    margin:auto;
+}
+
+.subtitles {
+    font-size:40px;
+    font-family: "Mogra", cursive;
+    text-align:center;
 }
 
 .top {
@@ -71,12 +88,18 @@
 }
 
 #itemTitle {
+    font-size:100px;
     font-family: "Mogra", cursive;
     text-align:center;
 }
 
 .itemBox {
     padding:5px;
+    text-align:center;
+}
+
+#itemName, #description, #imageLink, #value {
+    font-size:40px;
 }
 
 .thumbnail {
@@ -90,22 +113,24 @@
     font-family: "Nunito", sans-serif;
 }
 
+#printItemName {
+    font-size:20px;
+    font-family: "Mogra", cursive;
+}
+
+#printDesc {
+    font-size:15px;
+    font-family:"Nunito", sans-serif;
+}
+
+#money {
+    text-align:center;
+}
+
 #button {
     margin:auto;
     font-family: "Mogra", cursive;
     font-size:30px;
-}
-.caption {
-    height: 130px;
-    overflow: hidden;
-}
-
-.caption h4 {
-    white-space: nowrap;
-}
-
-.thumbnail img {
-    width: 100%;
 }
 
 .thumbnail {
