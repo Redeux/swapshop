@@ -21,14 +21,12 @@ module.exports = function(app) {
   });
   app.get('/pending', isLoggedIn, (req, res) => {
     res.render('pending.hbs');
-  app.get('/user/transactions',  isLoggedIn, userController.transactions);
-
-  function isLoggedIn(req, res, next) {
-
-    req.session.returnTo = req.path;
-    if (req.isAuthenticated())
-      return next();
-
-    res.redirect('/login');
-  }
+  });
+  app.get('/user/transactions', isLoggedIn, userController.transactions);
 };
+
+function isLoggedIn(req, res, next) {
+  req.session.returnTo = req.path;
+  if (req.isAuthenticated()) return next();
+  return res.redirect('/login');
+}
