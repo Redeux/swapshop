@@ -2,29 +2,86 @@ const db = require('../models/');
 
 module.exports = (app) => {
 
-  app.get(':userId/items', (req, res) => {
+  // gets all items for a given user
+  app.get('/:userId/items', (req, res) => {
     db.Item.findAll({
       where: {
         UserId: req.params.userId
-      }
+      },
     }).then((dbItems) => {
-      var hbsObject = {
-        items: dbItems
-      }
+      const hbsObject = {
+        items: dbItems,
+      };
+      console.log(dbItems);
       res.render('user-items', hbsObject);
     });
   });
 
-  app.get('/:userId/:item', (req, res) => {
+
+  // gets a single user item
+  app.get('/:userId/items/:item', (req, res) => {
     db.Item.findOne({
       where: {
-        id: req.params.item
-      }
+        id: req.params.item,
+      },
     }).then((dbItem) => {
-      res.render('user-items');
+      console.log(dbItem);
+      res.render('item', dbItem);
     });
   });
 
+  // Creates a new transaction request
+  app.post('/:userId/items/:item/trade', (req, res) => {
+    db.Item.findOne({
+      where: {
+        id: req.body.requesterItem,
+        userId: req.body.requesterId,
+        active: true,
+      },
+    }).then((requesterItem) => {
+      if (!requesterItem) return res.json('your item unavailable');
+      db.Item.findOne({
+        where: {
+          id: req.body.requesteeItem,
+          userId: req.body.requesteeId,
+          for_swap: true,
+          active: true,
+        },
+      }).then((requesteeItem) => {
+        if (!requesteeItem) return res.json('their item unavailable');
+        db.SwapTransaction.findOne({
+          where: {
+            user1: req.body.requesterId,
+            swapItem1: req.body.requesterItem,
+            user2: req.body.requesteeId,
+            swapItem2: req.body.requesteeItem,
+          },
+        }).then((transaction) => {
+          if (!transaction) {
+            db.SwapTransaction.create({
+              user1: req.body.requesterId,
+              swapItem1: req.body.requesterItem,
+              user2: req.body.requesteeId,
+              swapItem2: req.body.requesteeItem,
+              status: 'Pending',
+            }).then((createdTransaction) => {
+              return res.json({
+                result: 'created',
+                createdTransaction,
+              });
+            });
+          } else {
+            return res.json({
+              result: 'exists',
+              transaction,
+            });
+          }
+        });
+      });
+    });
+  });
+
+  // creates a new item for the logged in user
   app.post('/item/create', isLoggedIn, (req, res) => {
     db.Item.create({
       itemName: req.body.itemName,
@@ -41,78 +98,92 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/user/:userId/trade-items', (req, res) => {
-    db.Item.findAll({
-      where: {
-        UserId: {
-          $ne: req.params.userId
-        },
-      },
-    }).then((tradeItems) => {
-      db.Item.findAll({
-        where: {
-          UserId: req.params.userId
-        },
-      }).then((userItems) => {
-        var hbsObject = {
-          tradeItems: tradeItems,
-          userItems: userItems,
-        }
-        res.render('items', hbsObject);
-      });
-    });
-  });
+  // app.get('/:userId/trade-items', isLoggedIn, (req, res) => {
+  //   db.Item.findAll({
+  //     where: {
+  //       UserId: {
+  //         $ne: req.params.userId
+  //       },
+  //     },
+  //   }).then((tradeItems) => {
+  //     db.Item.findAll({
+  //       where: {
+  //         UserId: req.params.userId
+  //       },
+  //     }).then((userItems) => {
+  //       var hbsObject = {
+  //         tradeItems: tradeItems,
+  //         userItems: userItems,
+  //       }
+  //       res.render('items', hbsObject);
+  //     });
+  //   });
+  // });
 
-  app.put('/item/update', (req, res) => {
+  // updates an item for a logged in user
+  app.put('/item/update', isLoggedIn, (req, res) => {
     db.Item.update(
       req.body, {
         where: {
-          id: req.body.id
-        }
+          $and: [{
+              id: req.body.itemId,
+            },
+            {
+              userId: req.session.passport.user,
+            },
+          ],
+        },
       }).then((dbItem) => {
       res.redirect('/user-item');
     });
   });
 
-  app.put('/item/delete', (req, res) => {
+  // deletes an item for a logged in user
+  app.put('/item/delete', isLoggedIn, (req, res) => {
     db.Item.destroy(
       req.body, {
         where: {
-          id: req.body.id
+          $and: [{
+              id: req.body.itemId,
+            },
+            {
+              userId: req.session.passport.user,
+            },
+          ],
         }
       }).then((dbItem) => {
       res.redirect('/user-item');
     });
   });
 
-  app.put('/trade', (req, res) => {
-    // console.log(req.body);
-    // would need trade confirmation here
-    db.Item.findOne({
-      where: {
-        id: req.body.TradeItemId
-      }
-    }).then((tradeItem) => {
+  // app.put('/trade', isLoggedIn, (req, res) => {
+  //   // console.log(req.body);
+  //   // would need trade confirmation here
+  //   db.Item.findOne({
+  //     where: {
+  //       id: req.body.TradeItemId
+  //     }
+  //   }).then((tradeItem) => {
 
-      var tradeeId = tradeItem.UserId;
-      console.log(req.body.UserId, req.body.UserItemId)
-      db.Item.update({
-        UserId: req.body.UserId
-      }, {
-        where: {
-          id: req.body.TradeItemId
-        }
-      }).then(() => {
-        db.Item.update({
-          UserId: tradeeId
-        }, {
-          where: {
-            id: req.body.UserItemId
-          }
-        });
-      });
-    });
-  });
+  //     var tradeeId = tradeItem.UserId;
+  //     console.log(req.body.UserId, req.body.UserItemId)
+  //     db.Item.update({
+  //       UserId: req.body.UserId
+  //     }, {
+  //       where: {
+  //         id: req.body.TradeItemId
+  //       }
+  //     }).then(() => {
+  //       db.Item.update({
+  //         UserId: tradeeId
+  //       }, {
+  //         where: {
+  //           id: req.body.UserItemId
+  //         }
+  //       });
+  //     });
+  //   });
+  // });
 };
 
 function isLoggedIn(req, res, next) {
