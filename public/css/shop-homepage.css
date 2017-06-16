@@ -8,25 +8,23 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color:gray;
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
-
 #homePageTitle {
     font-family: "Mogra", cursive;
     font-size:100px;
-    text-align:center;
+    color:black;
+}
+
+.subheading {
+    color:black;
+    font-weight:bold;
+    font-size:40px;
 }
 
 .options {
     text-align:center;
     font-family: "Nunito", sans-serif;
-}
-
-.navbar {
-    box-sizing:border-box;
-    height:50px;
+    color:black;
+    font-weight:bolder;
 }
 
 .title {
@@ -38,6 +36,7 @@ body {
 #enterInfo {
     text-align:center;
     font-Family: "Nunito", sans-serif;
+    font-size:50px;
 }
 
 .links {
@@ -46,9 +45,20 @@ body {
 
 .userForm {
     text-align:center;
+    font-size:40px;
     font-family: "Nunito", sans-serif;
-    border: solid black 1px;
     padding: 5px;
+}
+
+#email, #password {
+    font-size:40px;
+}
+
+#submitBtn {
+    font-size:30px;
+    font-family: "Mogra", cursive;
+    border-radius:12px;
+    background-color:#ffa07a;
 }
 
 .top {
@@ -109,4 +119,5 @@ footer {
 .footer {
     font-family: "Nunito", sans-serif;
     text-align:center;
+    height:10px;
 }
