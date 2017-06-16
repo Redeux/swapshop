@@ -23,12 +23,10 @@ module.exports = function(app) {
     res.render('pending.hbs');
   });
   app.get('/user/transactions', isLoggedIn, userController.transactions);
-
-  function isLoggedIn(req, res, next) {
-    req.session.returnTo = req.path;
-    if (req.isAuthenticated())
-      return next();
-
-    res.redirect('/login');
-  }
 };
+
+function isLoggedIn(req, res, next) {
+  req.session.returnTo = req.path;
+  if (req.isAuthenticated()) return next();
+  return res.redirect('/login');
+}
