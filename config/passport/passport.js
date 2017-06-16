@@ -1,16 +1,13 @@
-//load bcrypt
-var bCrypt = require('bcrypt-nodejs');
+const bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport, user) {
 
-  var User = user;
-  var LocalStrategy = require('passport-local').Strategy;
-
+  let User = user;
+  const LocalStrategy = require('passport-local').Strategy;
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
-
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
@@ -21,9 +18,7 @@ module.exports = function(passport, user) {
         done(user.errors, null);
       }
     });
-
   });
-
 
   passport.use('local-signup', new LocalStrategy(
 
@@ -34,9 +29,7 @@ module.exports = function(passport, user) {
     },
 
     function(req, email, password, done) {
-
-
-      var generateHash = function(password) {
+      const generateHash = function(password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
       };
 
@@ -45,20 +38,18 @@ module.exports = function(passport, user) {
           email: email
         }
       }).then(function(user) {
-
         if (user) {
           return done(null, false, {
             message: 'That email is already taken'
           });
         } else {
-          var userPassword = generateHash(password);
-          var data = {
+          const userPassword = generateHash(password);
+          const data = {
             email: email,
             password: userPassword,
             firstname: req.body.firstname,
             lastname: req.body.lastname
           };
-
 
           User.create(data).then(function(newUser, created) {
             if (!newUser) {
@@ -67,29 +58,16 @@ module.exports = function(passport, user) {
 
             if (newUser) {
               return done(null, newUser);
-
             }
-
-
           });
         }
-
-
       });
-
-
-
     }
-
-
-
   ));
 
-  //LOCAL SIGNIN
+  // LOCAL SIGNIN
   passport.use('local-signin', new LocalStrategy(
-
     {
-
       // by default, local strategy uses username and password, we will override with email
       usernameField: 'email',
       passwordField: 'password',
@@ -97,19 +75,17 @@ module.exports = function(passport, user) {
     },
 
     function(req, email, password, done) {
+      let User = user;
 
-      var User = user;
-
-      var isValidPassword = function(userpass, password) {
+      const isValidPassword = function(userpass, password) {
         return bCrypt.compareSync(password, userpass);
-      }
+      };
 
       User.findOne({
         where: {
           email: email
         }
       }).then(function(user) {
-
         if (!user) {
           return done(null, false, {
             message: 'Email does not exist'
@@ -117,29 +93,20 @@ module.exports = function(passport, user) {
         }
 
         if (!isValidPassword(user.password, password)) {
-
           return done(null, false, {
             message: 'Incorrect password.'
           });
-
         }
 
-        var userinfo = user.get();
+        const userinfo = user.get();
 
         return done(null, userinfo);
-
       }).catch(function(err) {
-
         console.log("Error:", err);
-
         return done(null, false, {
           message: 'Something went wrong with your Signin'
         });
-
-
       });
-
     }
   ));
-
-}
+};

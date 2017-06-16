@@ -1,11 +1,9 @@
-// let exports = module.exports = {};
-
 exports.signup = (req, res) => {
   res.render('signup');
 };
 
-exports.signin = (req, res) => {
-  res.render('signin');
+exports.login = (req, res) => {
+  res.render('login');
 };
 
 exports.dashboard = (req, res) => {
