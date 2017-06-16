@@ -1,20 +1,32 @@
-const path = require('path');
+const userController = require('./../contollers/userController');
+
 
 // these are some initial html routes that we had talked about on Monday
-module.exports = function (app) {
+module.exports = function(app) {
   app.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../views/index.hbs'));
+    res.render('index.hbs');
   });
   app.get('/signup', (req, res) => {
-    res.render(path.join(__dirname, '../views/signup.hbs'));
+    res.render('signup.hbs');
   });
-  app.get('/user/:userId/items/create', (req, res) => {
-    res.render(path.join(__dirname, '../views/createItems.hbs'));
+  app.get('/user', isLoggedIn, userController.items);
+  app.get('/user/items', isLoggedIn, (req, res) => {
+    res.redirect('/user');
+  });
+  app.get('/user/items/create', isLoggedIn, (req, res) => {
+    res.render('createItems.hbs');
   });
   app.get('/login', (req, res) => {
-    res.render(path.join(__dirname, '../views/login.hbs'));
+    res.render('login.hbs');
   });
-  // app.get('/user/:userId/items', (req, res) => {
-  //   res.render(path.join(__dirname, '../views/user-items.hbs'));
-  // });
+
+
+  function isLoggedIn(req, res, next) {
+
+    req.session.returnTo = req.path;
+    if (req.isAuthenticated())
+      return next();
+
+    res.redirect('/login');
+  }
 };

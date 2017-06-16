@@ -4,10 +4,10 @@ module.exports = (app, passport) => {
 
   app.get('/signup', authController.signup);
 
-  app.get('/signin', authController.signin);
+  app.get('/login', authController.login);
 
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
+    successRedirect: '/user',
     failureRedirect: '/signup',
   }));
 
@@ -15,15 +15,18 @@ module.exports = (app, passport) => {
 
   app.get('/logout', authController.logout);
 
-  app.post('/signin', passport.authenticate('local-signin', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signin'
-  }));
+  app.post('/login', passport.authenticate('local-signin',
+    {
+      successRedirect: '/user',
+      failureRedirect: '/login'
+    }
+  ));
 
   function isLoggedIn(req, res, next) {
+    req.session.returnTo = req.path;
     if (req.isAuthenticated())
       return next();
 
-    res.redirect('/signin');
+    res.redirect('/login');
   }
 };
