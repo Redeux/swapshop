@@ -3,18 +3,39 @@ const db = require('../models');
 
 exports.items = (req, res) => {
   console.log(`user-id: ${req.session.passport.user}`);
-  
-    db.Item.findAll({
-      where: {
-        UserId: req.session.passport.user
-      }
-    }).then((dbItems) => {
-      var hbsObject = {
-        items: dbItems
-      }
-      res.render('user-items', hbsObject);
-    });
+
+  db.Item.findAll({
+    where: {
+      UserId: req.session.passport.user
+    }
+  }).then((dbItems) => {
+    var hbsObject = {
+      items: dbItems
+    }
+    res.render('user-items', hbsObject);
+  });
 };
+
+exports.transactions = (req, res) => {
+  db.SwapTransaction.findAll({
+    where: {
+      $or: [{
+          user1: req.session.passport.user,
+        },
+        {
+          user2: req.session.passport.user,
+        },
+      ],
+    },
+  }).then((transactions) => {
+
+    hbsObject = {
+      transaction: transactions,
+    };
+    res.render('transaction', hbsObject);
+  });
+};
+
 //   });
 //   db.User.findOne({
 //         where: {

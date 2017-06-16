@@ -16,6 +16,7 @@ module.exports = function(app) {
   app.get('/user/items/create', isLoggedIn, (req, res) => {
     res.render('createItems.hbs');
   });
+  app.get('/user/transactions',  isLoggedIn, userController.transactions);
   app.get('/login', (req, res) => {
     res.render('login.hbs');
   });
