@@ -1,2 +1,0 @@
-INSERT INTO SwapTransaction (requester, requestee, requesteeAck, status) VALUES (1, 3, false, 'Pending');
-INSERT INTO SwapTransaction (requester, requestee, requesteeAck, status) VALUES (2, 1, true, 'Declined');

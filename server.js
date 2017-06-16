@@ -9,7 +9,7 @@ const models = require('./models');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 // For BodyParser
 app.use(bodyParser.urlencoded({
   extended: true,
