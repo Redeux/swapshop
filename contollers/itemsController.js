@@ -1,7 +1,6 @@
 const db = require('../models/');
 
 module.exports = (app) => {
-
   // gets all items for a given user
   app.get('/:userId/items', (req, res) => {
     db.Item.findAll({
@@ -31,11 +30,11 @@ module.exports = (app) => {
   });
 
   // Creates a new transaction request
-  app.post('/:userId/items/:item/trade', (req, res) => {
+  app.post('/trade', isLoggedIn, (req, res) => {
     db.Item.findOne({
       where: {
         id: req.body.requesterItem,
-        userId: req.body.requesterId,
+        userId: req.session.passport.user,
         active: true,
       },
     }).then((requesterItem) => {
@@ -51,7 +50,7 @@ module.exports = (app) => {
         if (!requesteeItem) return res.json('their item unavailable');
         db.SwapTransaction.findOne({
           where: {
-            user1: req.body.requesterId,
+            user1: req.session.passport.user,
             swapItem1: req.body.requesterItem,
             user2: req.body.requesteeId,
             swapItem2: req.body.requesteeItem,
@@ -59,7 +58,7 @@ module.exports = (app) => {
         }).then((transaction) => {
           if (!transaction) {
             db.SwapTransaction.create({
-              user1: req.body.requesterId,
+              user1: req.session.passport.user,
               swapItem1: req.body.requesterItem,
               user2: req.body.requesteeId,
               swapItem2: req.body.requesteeItem,
@@ -185,6 +184,14 @@ module.exports = (app) => {
   //   });
   // });
 };
+exports.displayAll = (req, res) => {
+  db.Item.findAll({
+    limit: 10,
+  }).then((rows) => {
+    res.render('index.hbs', rows);
+  });
+};
+
 
 function isLoggedIn(req, res, next) {
   req.session.returnTo = req.path;
