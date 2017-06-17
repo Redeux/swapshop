@@ -1,7 +1,8 @@
 const db = require('../models/');
 
 module.exports = (app) => {
-  app.get('/user/:userId/items', (req, res) => {
+
+  app.get(':userId/items', (req, res) => {
     db.Item.findAll({
       where: {
         UserId: req.params.userId
@@ -13,16 +14,17 @@ module.exports = (app) => {
       res.render('user-items', hbsObject);
     });
   });
-  app.get('/user/:item', (req, res) => {
+
+  app.get('/:userId/:item', (req, res) => {
     db.Item.findOne({
       where: {
         id: req.params.item
       }
     }).then((dbItem) => {
       res.render('user-items');
-    })
+    });
   });
-  app.post('/item/create', (req, res) => {
+  app.post('/item/create', isLoggedIn, (req, res) => {
     db.Item.create({
       itemName: req.body.itemName,
       description: req.body.description,
@@ -32,12 +34,12 @@ module.exports = (app) => {
       for_sale: req.body.for_sale,
       value: req.body.value,
       public: req.body.public,
-      UserId: req.body.UserId
-
+      UserId: req.session.passport.user,
     }).then((dbItem) => {
-      res.redirect('/user/' + req.body.UserId + '/items');
+      res.redirect('/user/');
     });
   });
+
   app.get('/user/:userId/trade-items', (req, res) => {
     db.Item.findAll({
       where: {
@@ -47,90 +49,74 @@ module.exports = (app) => {
       },
     }).then((tradeItems) => {
       db.Item.findAll({
-      where: {
-        UserId: req.params.userId
-      },
-    }).then((userItems) => {
-      var hbsObject = {
-        tradeItems: tradeItems,
-        userItems: userItems,
-      }
-      res.render('transaction', hbsObject);
-    })
+        where: {
+          UserId: req.params.userId
+        },
+      }).then((userItems) => {
+        var hbsObject = {
+          tradeItems: tradeItems,
+          userItems: userItems,
+        }
+        res.render('items', hbsObject);
+      });
     });
   });
   app.put('/item/update', (req, res) => {
     db.Item.update(
-      req.body,
-      {
-        where: {
-          id: req.body.id
-        }
-    }).then((dbItem) => {
-      res.redirect('/user-items');
-    });
-  });
-  app.put('/item/delete', (req, res) => {
-    db.Item.destroy(
-      req.body,
-      {
+      req.body, {
         where: {
           id: req.body.id
         }
       }).then((dbItem) => {
-        res.redirect('/user-items');
-      });
+      res.redirect('/user-item');
+    });
   });
-  app.post('/trade-request', (req, res) =>{
+
+  app.put('/item/delete', (req, res) => {
+    db.Item.destroy(
+      req.body, {
+        where: {
+          id: req.body.id
+        }
+      }).then((dbItem) => {
+      res.redirect('/user-item');
+    });
+  });
+
+  app.put('/trade', (req, res) => {
+    // console.log(req.body);
+    // would need trade confirmation here
     db.Item.findOne({
       where: {
         id: req.body.TradeItemId
       }
     }).then((tradeItem) => {
       var tradeeId = tradeItem.UserId;
-      db.SwapTransactions.create({
-        user1: req.body.userId,
-        user2: req.body.tradeeId,
-        swapItem1: req.body.UserItemId,
-        swapItem2: req.body.TradeItemId
-    }).then((results) => {
-      // send info to both users pending transactions pages
-    })
 
-    })
-    
-    
-  })
-
-  // app.put('/trade', (req,res) => {
-  //   // console.log(req.body);
-  //   // would need trade confirmation here
-
-  //   db.Item.findOne({
-  //     where: {
-  //       id: req.body.TradeItemId
-  //     }
-  //   }).then((tradeItem) => {
-
-  //     var tradeeId = tradeItem.UserId;
-
-  //     // db.Item.update({
-  //     // UserId: req.body.UserId
-  //     // },
-  //     // {
-  //     //   where: {
-  //     //     id: req.body.TradeItemId
-  //     //   }
-  //     // }).then(() => {
-  //     //   db.Item.update({
-  //     //     UserId: tradeeId
-  //     //     },
-  //     //     {
-  //     //       where: {
-  //     //         id: req.body.UserItemId
-  //     //       }
-  //     //   })
-  //     // });
-  //   });
-  // });
+      console.log(req.body.UserId, req.body.UserItemId)
+      db.Item.update({
+        UserId: req.body.UserId
+      }, {
+        where: {
+          id: req.body.TradeItemId
+        }
+      }).then(() => {
+        db.Item.update({
+          UserId: tradeeId
+        }, {
+          where: {
+            id: req.body.UserItemId
+          }
+        });
+      });
+    });
+  });
 };
+
+function isLoggedIn(req, res, next) {
+  req.session.returnTo = req.path;
+  if (req.isAuthenticated())
+    return next();
+
+  res.redirect('/login');
+}

@@ -29,21 +29,17 @@ app.use(passport.session()); // persistent login sessions
 // app.set('views', './views')
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
-  extname: '.hbs'
+  extname: '.hbs',
 }));
 app.set('view engine', '.hbs');
 
 // Load passport strategies
-// require('./config/passport/passport.js')(passport, models.user);
+require('./config/passport/passport.js')(passport, models.User);
 
 // Routes
-const authRoute = require('./routes/auth')(app);
+require('./routes/auth')(app, passport);
 require('./routes/html-routes.js')(app);
 require('./contollers/itemsController.js')(app);
-
-app.get('/', (req, res) => {
-  res.send('Welcome to Passport with Sequelize');
-});
 
 // Sync  database and start server
 models.sequelize.sync().then(() => {

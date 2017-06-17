@@ -17,21 +17,21 @@
         <div class="row top">
             <div class="col-md-12">
                 <div class="list-group links">
-                    <a href="/signin" class="list-group-item">Sign-in</a>
+                    <a href="/login" class="list-group-item">Sign-in</a>
                     <a href="/DUNNOYET" class="list-group-item">View Other Shops</a>
                 </div>
-                <p class="lead" id="yourShop">Your Shop</p>
             </div>
         </div>
 
             
 <h2 id="itemTitle">Add an Item to Your Shop</h2>
 <div class="row ">
+    <div class="col-sm-4"></div>
   <div class="col-sm-4 addItem">
       <form class="create-update-form" action="/item/create" method="post">
         <div class="form-group">
-          <label for="UserId">User Id</label><br>
-          <input type="text" id="userId" name="UserId"><br>
+          {{!--<label for="UserId">User Id</label><br>
+          <input type="text" id="userId" name="UserId"><br>--}}
           <label for="itemName">Name of Item:</label><br>
           <input type="text" id="itemName" name="itemName"><br>
           <label for="description">Description:</label><br>

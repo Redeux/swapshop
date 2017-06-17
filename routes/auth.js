@@ -1,20 +1,32 @@
 const authController = require('../contollers/authController');
-const passport = require('passport');
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
+
   app.get('/signup', authController.signup);
 
-  app.get('/signin', authController.signin);
+  app.get('/login', authController.login);
 
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
+    successRedirect: '/user',
     failureRedirect: '/signup',
   }));
 
+  app.get('/dashboard', isLoggedIn, authController.dashboard);
+
   app.get('/logout', authController.logout);
 
+  app.post('/login', passport.authenticate('local-signin',
+    {
+      successRedirect: '/user',
+      failureRedirect: '/login'
+    }
+  ));
+
   function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.redirect('/signin');
+    req.session.returnTo = req.path;
+    if (req.isAuthenticated())
+      return next();
+
+    res.redirect('/login');
   }
 };
