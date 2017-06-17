@@ -6,7 +6,7 @@ exports.items = (req, res) => {
 
   db.Item.findAll({
     where: {
-      UserId: req.session.passport.user
+      UserId: req.session.passport.user,
     }
   }).then((dbItems) => {
     var hbsObject = {
